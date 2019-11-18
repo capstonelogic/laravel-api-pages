@@ -17,10 +17,21 @@ class CreatePagesTable extends Migration
 
         Schema::create($tablePrefix.'pages', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->bigInteger('user_id')->unsigned();
+            $table->integer('status_id')->unsigned()->default(1);
             $table->string('title', 255);
             $table->text('content');
+            $table->string('seo_title', 255)->nullable();
+            $table->string('seo_description', 255)->nullable();
+            $table->string('seo_keywords', 255)->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('user_id')->references('id')
+                ->on('users')->onDelete('cascade');
+            
+            $table->foreign('status_id')->references('id')
+                ->on('page_statuses')->onDelete('cascade');
         });
     }
 

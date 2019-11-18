@@ -57,7 +57,9 @@ class PageController extends Controller
      */
     public function store(CreateRequest $request)
     {
-        return new PageResource($this->pageRepo->create($request->all()));
+        $data = $request->all();
+        $data['user_id'] = $request->user()->id;
+        return new PageResource($this->pageRepo->create($data));
     }
 
     /**

@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use CapstoneLogic\Auth\Model\User;
 
-class Page extends Model
+class Status extends Model
 {
     use SoftDeletes;
     
@@ -15,13 +15,7 @@ class Page extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id',
-        'status_id',
         'title',
-        'content',
-        'seo_title',
-        'seo_description',
-        'seo_keywords',
     ];
 
     /**
@@ -33,15 +27,7 @@ class Page extends Model
 
     public function __construct(array $attributes = [])
     {
-        $this->table = config('capstonelogic.pages.db_prefix') . 'pages';
+        $this->table = config('capstonelogic.pages.db_prefix') . 'page_statuses';
         parent::__construct($attributes);
-    }
-
-    public function user() {
-        return $this->belongsTo(User::class);
-    }
-
-    public function status() {
-        return $this->belongsTo(Status::class);
     }
 }
