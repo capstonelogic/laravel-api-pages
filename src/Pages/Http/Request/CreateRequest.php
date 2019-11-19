@@ -21,9 +21,12 @@ class CreateRequest extends FormRequest {
      * @return array
      */
     public function rules() {
+        $tablePrefix = config('capstonelogic.pages.db_prefix');
+
         return [
             'title' => 'required|string',
             'content' => 'required|string',
+            'status_id' => 'required|exists:'.$tablePrefix.'page_statuses,id'
         ];
     }
 }

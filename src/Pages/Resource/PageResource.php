@@ -16,6 +16,7 @@ class PageResource extends JsonResource {
         return [
             'id' => $this->id,
             'user' => $this->user,
+            'status_id' => $this->status_id,
             'status' => new StatusResource($this->status),
             'title' => $this->title,
             'content' => $this->content,

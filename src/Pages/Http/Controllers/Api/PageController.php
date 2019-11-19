@@ -8,8 +8,11 @@ use Woodoocoder\LaravelHelpers\Api\Response\ApiMessage;
 use Woodoocoder\LaravelHelpers\Api\Response\ApiStatus;
 
 use CapstoneLogic\Pages\Resource\PageResource;
+use CapstoneLogic\Pages\Resource\StatusResource;
 use CapstoneLogic\Pages\Model\Page;
+use CapstoneLogic\Pages\Model\Status;
 use CapstoneLogic\Pages\Repository\PageRepository;
+use CapstoneLogic\Pages\Repository\StatusRepository;
 use CapstoneLogic\Pages\Http\Request\SearchRequest;
 use CapstoneLogic\Pages\Http\Request\CreateRequest;
 use CapstoneLogic\Pages\Http\Request\UpdateRequest;
@@ -18,10 +21,25 @@ class PageController extends Controller
 {
 
     private $pageRepo;
-    public function __construct(PageRepository $pageRepo) {
+    private $statusRepo;
+
+    public function __construct(
+            PageRepository $pageRepo,
+            StatusRepository $statusRepo) {
         $this->pageRepo = $pageRepo;
+        $this->statusRepo = $statusRepo;
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function statuses(Request $request)
+    {
+        return StatusResource::collection($this->statusRepo->paginate());
+    }
+    
     /**
      * Display a listing of the resource.
      *
